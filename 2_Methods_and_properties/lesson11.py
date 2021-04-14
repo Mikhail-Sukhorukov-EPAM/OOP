@@ -1,82 +1,56 @@
-""" 2.7 Декоратор Property property атрибуты """
+""" 2.11 Практика по методам и свойствам (property) """
 
-"""
-class BankAccount:
-    def __init__(self, name, balance):
-        self.name = name
-        self.__balance = balance
-
-    @property
-    def my_balance(self):
-        return self.__balance
-
-    @my_balance.setter
-    def my_balance(self, value):
-        if not isinstance(value, (int, float)):
-            raise ValueError("Тип данных должен быть int или float")
-        self.__balance = value
-
-    @my_balance.deleter
-    def my_balance(self):
-        del self.__balance
+from string import digits
 
 
-b1 = BankAccount("Mikhail", 1000000)
-print(b1.my_balance)
-b1.my_balance = 1000000001
-print(b1.my_balance)
-b1.my_balance = 1
-print(b1.my_balance)
-"""
-
-
-class Money:
-    def __init__(self, dollars, cents):
-        self.total_cents = dollars * 100 + cents
+class User:
+    def __init__(self, login, password):
+        self.login = login
+        self.password = password
+        self.__secret = "you are an asshole"
 
     @property
-    def dollars(self):
-        return self.total_cents // 100
-
-    @dollars.setter
-    def dollars(self, new_dollars):
-        if isinstance(new_dollars, int) and new_dollars > 0:
-            self.total_cents = self.total_cents % 100 + new_dollars * 100
+    def secret(self):
+        password = input("Input your password, please: ")
+        if password == self.password:
+            return self.__secret
         else:
-            print("Error dollars")
+            raise ValueError("Forbidden")
 
     @property
-    def cents(self):
-        return self.total_cents % 100
+    def password(self):
+        return self.__password
 
-    @cents.setter
-    def cents(self, new_cents):
-        if isinstance(new_cents, int) and 0 < new_cents < 100:
-            self.total_cents = self.total_cents // 100 * 100 + new_cents
-        else:
-            print("Error cents")
+    @staticmethod
+    def is_include_number(password):
+        for digit in digits:
+            if digit in password:
+                return True
+        return False
 
-    def __str__(self):
-        return f"Ваше состояние составляет {self.dollars} долларов {self.cents} центов"
+    @staticmethod
+    def is_it_common_password(password):
+        with open("2_Methods_and_properties/passwords.txt") as common_passwords:
+            for line in common_passwords:
+                if line == password:
+                    return True
+            return False
+
+    @password.setter
+    def password(self, new_password):
+        if isinstance(new_password, int):
+            raise ValueError("A password must countain at least one letter")
+        if not isinstance(new_password, str):
+            raise TypeError("A password must be a string")
+        if len(new_password) < 4:
+            raise ValueError("A password must be higher than 4 symbols")
+        if len(new_password) > 12:
+            raise ValueError("A password must be less than 13 symbols")
+        if not User.is_include_number(new_password):
+            raise ValueError("A password must contain at least one digit")
+        if not User.is_it_common_password(new_password):
+            raise ValueError("A password must not be very simple")
+        self.__password = new_password
 
 
-m1 = Money(100, 2)
-print(m1)
-print(m1.total_cents)
-print(m1.dollars)
-m1.dollars = 655
-print(m1.dollars)
-print(m1.total_cents)
-print(m1.cents)
-m1.cents = 45
-print(m1.cents)
-print(m1.total_cents)
-print(m1)
-
-Bill = Money(101, 99)
-print(Bill)  # Ваше состояние составляет 101 долларов 99 центов
-print(Bill.dollars, Bill.cents)  # 101 99
-Bill.dollars = 666
-print(Bill)  # Ваше состояние составляет 666 долларов 99 центов
-Bill.cents = 12
-print(Bill)
+u1 = User("Mikhail", "1111")

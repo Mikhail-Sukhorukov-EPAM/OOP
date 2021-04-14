@@ -1,46 +1,28 @@
-
-class Counter:
-    start_value = 0
-
-    def start_from(self, value=0):
-        self.start_value = value
-
-    def increment(self):
-        self.start_value += 1
-
-    def display(self):
-        print("Текущее значение счетчика = "+str(self.start_value)+"")
-
-    def reset(self):
-        self.start_value = 0
+""" 2.5 Публичные, приватные, защищенные атрибуты и методы """
 
 
-c1 = Counter()
-c1.start_from()
-c1.increment()
-c1.display()  # печатает "Текущее значение счетчика = 1"
-c1.increment()
-c1.display()  # печатает "Текущее значение счетчика = 2"
-c1.reset()
-c1.display()  # печатает "Текущее значение счетчика
+class BankAccount:
+    def __init__(self, name, balance, passport):
+        """ self.name = name - публичный, self._balance = balance - защищенный (для разработчиков)
+        , self.__passport = passport - приватный (невозможно извлечь вне класса) """
+        self.name = name
+        self._balance = balance
+        self.__passport = passport
+
+    def print_public_data(self):
+        print(self.name)
+
+    def print_protected_data(self):
+        print(self._balance)
+
+    def print_private_data(self):
+        print(self.__passport)
 
 
-class Point:
-    def set_coordinates(self, x, y):
-        self.x = x
-        self.y = y
-
-    def get_distance(self, next_point):
-        if isinstance(next_point, Point):
-            self.distance = ((next_point.x - self.x)**2 + (next_point.y - self.y)**2)**(0.5)
-            return self.distance
-        else:
-            print("Передана не точка")
-
-
-p1 = Point()
-p2 = Point()
-p2.set_coordinates(1, 2)
-p1.set_coordinates(4, 6)
-p1.get_distance(p2)
-
+account1 = BankAccount("Bob", 10000, 131231)
+account1.print_public_data()
+account1.print_protected_data()
+account1.print_private_data()
+print(account1.name)
+print(account1._balance)
+print(account1.__passport)

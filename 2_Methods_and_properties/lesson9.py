@@ -1,28 +1,46 @@
-""" 2.5 Публичные, приватные, защищенные атрибуты и методы """
+""" 2.9 Classmethod и staticmethod """
 
 
-class BankAccount:
-    def __init__(self, name, balance, passport):
-        """ self.name = name - публичный, self._balance = balance - защищенный (для разработчиков)
-        , self.__passport = passport - приватный (невозможно извлечь вне класса) """
+"""
+class Example:
+    def hello():
+        print("hello")
+
+    def instance_hello(self):
+        print(f"instance_hello {self}")
+
+    @staticmethod
+    def staticmethod_hello():
+        print(f"staticmethod_hello")
+
+    @classmethod
+    def classmethod_hello(cls):
+        print(f"classmethod_hello {cls}")
+
+
+Example.classmethod_hello()
+Example.hello()
+e1 = Example()
+e1.instance_hello()
+e1.staticmethod_hello()
+"""
+
+
+class Robot:
+    population = 0
+
+    def __init__(self, name):
         self.name = name
-        self._balance = balance
-        self.__passport = passport
+        print(f"Робот {self.name} был создан")
+        Robot.population += 1
 
-    def print_public_data(self):
-        print(self.name)
+    def destroy(self):
+        Robot.population -= 1
+        print(f"Робот {self.name} был уничтожен")
 
-    def print_protected_data(self):
-        print(self._balance)
+    def say_hello(self):
+        print(f"Робот {self.name} приветствует тебя, особь человеческого рода")
 
-    def print_private_data(self):
-        print(self.__passport)
-
-
-account1 = BankAccount("Bob", 10000, 131231)
-account1.print_public_data()
-account1.print_protected_data()
-account1.print_private_data()
-print(account1.name)
-print(account1._balance)
-print(account1.__passport)
+    @classmethod
+    def how_many(cls):
+        print(f"{cls.population}, вот сколько нас еще осталось")

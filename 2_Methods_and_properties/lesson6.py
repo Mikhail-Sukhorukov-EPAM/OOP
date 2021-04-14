@@ -1,52 +1,58 @@
-class Person:
-    def __init__(self, first_name, last_name, age):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.age = age
-
-    def full_name(self):
-        return f"{self.last_name} {self.first_name}"
-
-    def is_adult(self):
-        return False if self.age < 18 else True
+""" 2.6 Геттеры и сеттеры, property атрибуты """
 
 
-class Zebra:
-    def __init__(self):
-        self.count_of_stripe = 0
-
-    def which_stripe(self):
-        if self.count_of_stripe % 2 == 0:
-            print("Полоска белая")
-        else:
-            print("Полоска черная")
-        self.count_of_stripe += 1
-
-
-class SoccerPlayer:
-    def __init__(self, name, surname):
+"""
+class BankAccount:
+    def __init__(self, name, balance):
         self.name = name
-        self.surname = surname
-        self.goals = 0
-        self.assists = 0
+        self.__balance = balance
 
-    def score(self, goals=1):
-        self.goals += goals
+    def get_balance(self):
+        return self.__balance
 
-    def make_assist(self, assists=1):
-        self.assists += assists
+    def set_balance(self, value):
+        if not isinstance(value, (int, float)):
+            raise ValueError("Тип данных должен быть int или float")
+        self.__balance = value
 
-    def statistics(self):
-        print(f"{self.surname} {self.name} - голы: {self.goals}, передачи: {self.assists}")
+    def delete_balance(self):
+        del self.__balance
 
-
-class Laptop:
-    def __init__(self, brand, model, price):
-        self.brand = brand
-        self.model = model
-        self.price = price
-        self.laptop_name = f"{self.brand} {self.model}"
+    balance = property(fget=get_balance, fset=set_balance, fdel=delete_balance)
 
 
-laptop1 = Laptop("asus", "111", 123)
-laptop2 = Laptop("hp", "fgf", 555)
+a = BankAccount("Mikhail", 100000)
+a.balance
+a.balance = 600
+a.balance
+del a.balance
+"""
+
+
+class UserMail:
+    def __init__(self, login, email):
+        self.login = login
+        self.__email = email
+
+    def get_email(self):
+        return self.__email
+
+    def set_email(self, new_email):
+        if isinstance(new_email, str) and len(new_email.split("@")) == 2 and "." in new_email.split("@")[1]:
+            self.__email = new_email
+        else:
+            print("Ошибочная почта")
+
+    email = property(fget=get_email, fset=set_email)
+
+
+k = UserMail('belosnezhka', 'prince@wait.you')
+print(k.email)  # prince@wait.you
+k.email = [1, 2, 3]  # Ошибочная почта
+k.email = 'prince@still@.wait'  # Ошибочная почта
+k.email = 'prince@still.wait'
+print(k.email)
+k.email = 'pppp@sdfsfsdfsdf'  # Ошибочная почта
+print(k.email)
+k.email = 'hello@re.w3'
+print(k.email)
