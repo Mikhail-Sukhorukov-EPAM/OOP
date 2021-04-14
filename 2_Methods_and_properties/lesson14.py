@@ -30,7 +30,7 @@ class User:
 
     @staticmethod
     def is_it_common_password(password):
-        with open("passwords.txt") as common_passwords:
+        with open("2_Methods_and_properties/passwords.txt") as common_passwords:
             for line in common_passwords:
                 if line == password:
                     return True

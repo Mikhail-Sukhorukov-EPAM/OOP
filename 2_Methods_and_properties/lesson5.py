@@ -37,6 +37,7 @@ class Point:
         else:
             print("Передана не точка")
 
+
 p1 = Point()
 p2 = Point()
 p2.set_coordinates(1, 2)
