@@ -49,6 +49,7 @@ class BankAccount:
     def __repr__(self):
         return f"User: {self.name}, balance: {self.balance}"
 
+
 b1 = BankAccount("M", 600)
 b2 = BankAccount("D", 1000)
 
