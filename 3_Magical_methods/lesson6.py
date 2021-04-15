@@ -42,3 +42,23 @@ c2 = City("Mosco")
 print(bool(c1))
 print(bool(c2))
 """
+
+
+class Quadrilateral:
+    def __init__(self, width, height="dtdfdf"):
+        self.width = width
+        if isinstance(height, str):
+            self.height = width
+        else:
+            self.height = height
+
+    def __str__(self):
+        return f"Куб размером {self.width}х{self.height}" if self.width == self.height \
+            else f"Прямоугольник размером {self.width}х{self.height}"
+
+    def __bool__(self):
+        return self.width == self.height
+
+
+q3 = Quadrilateral(10, 0)
+print(q3)
