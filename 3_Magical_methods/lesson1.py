@@ -54,6 +54,7 @@ class Person:
             self.gender = "male"
 
 
+"""
 p1 = Person("Mikhail", "Sukhorukov", "male")
 print(p1)
 p2 = Person("Darya", "Motorina", "female")
@@ -64,3 +65,30 @@ p1 = Person('Chuck', 'Norris')
 print(p1)  # печатает "Гражданин Norris Chuck"
 p2 = Person('Mila', 'Kunis', 'female')
 print(p2)  # печатает "Гражданка Kunis Mila"
+"""
+
+
+class Vector:
+    def __init__(self, *args):
+        self.values = []
+        for arg in args:
+            if isinstance(arg, int):
+                self.values.append(arg)
+
+    def __str__(self):
+        if not self.values:
+            return "Пустой вектор"
+        else:
+            return f"Вектор{(*sorted(self.values),)}"
+
+
+v1 = Vector(4, 2, 3, 4, "Sdfasdf")
+print(v1.values)
+print(v1)
+v2 = Vector("fasdf")
+print(v2.values)
+print(v2)
+v3 = Vector()
+print(v3.values)
+print(v3)
+
